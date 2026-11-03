@@ -29,6 +29,10 @@ npm run dev        # http://localhost:3000
 | `npm run test:e2e` | Playwright happy path (run `npm run build` first; first run needs `npx playwright install chromium`) |
 | `npm run check` | lint + typecheck + test + build |
 
+### Continuous integration
+
+`.github/workflows/ci.yml` runs on every push and on pull requests to `main`: `npm ci`, lint, typecheck, unit/component tests, production build, then the Playwright happy path in Chromium. Failed e2e runs upload `test-results/` as an artifact.
+
 ## Stack
 
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · Motion · Lucide icons · Space Grotesk (bundled via `@fontsource`, no Google Fonts fetch) · Vitest + Testing Library · Playwright.
