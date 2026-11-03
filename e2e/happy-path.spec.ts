@@ -58,7 +58,10 @@ test("onboard, accept, complete, check hero, and survive a reload", async ({ pag
   await page.getByRole("navigation", { name: "Main" }).getByRole("button", { name: "Hero" }).click();
   await expect(page.getByRole("region", { name: "Recent quests" }).getByText(title)).toBeVisible();
   await page.getByRole("navigation", { name: "Main" }).getByRole("button", { name: "Achievements" }).click();
-  await expect(page.getByText("1 of 10 unlocked")).toBeVisible();
+  // The board is random: a Rare+ first quest also unlocks Main Character Energy,
+  // so assert First Steps is unlocked rather than an exact count.
+  await expect(page.getByText(/^[12] of 10 unlocked$/)).toBeVisible();
+  await expect(page.getByRole("region", { name: /^Unlocked/ }).getByText("First Steps")).toBeVisible();
 
   expect(errors).toEqual([]);
 });
