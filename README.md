@@ -33,6 +33,12 @@ npm run dev        # http://localhost:3000
 
 `.github/workflows/ci.yml` runs on every push and on pull requests to `main`: `npm ci`, lint, typecheck, unit/component tests, production build, then the Playwright happy path in Chromium. Failed e2e runs upload `test-results/` as an artifact.
 
+### Deployment
+
+`.github/workflows/deploy.yml` publishes the app to GitHub Pages at https://f0rest-j.github.io/SideQuest/ after CI passes on `main` (it can also be started by hand from the Actions tab). Requires **Settings → Pages → Source: GitHub Actions**.
+
+The app is fully client-side, so it builds as a static site: `STATIC_EXPORT=1` switches Next.js to `output: "export"` (into `out/`), and `PAGES_BASE_PATH` sets the sub-path the site is served from. Without these variables the app builds for `next start` as usual.
+
 ## Stack
 
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · Motion · Lucide icons · Space Grotesk (bundled via `@fontsource`, no Google Fonts fetch) · Vitest + Testing Library · Playwright.
